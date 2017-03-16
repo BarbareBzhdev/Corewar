@@ -25,7 +25,7 @@ void						apply_fork(t_process *process, t_env *env)
 
 	decode(args, env->memory[process->pc], env->memory[process->pc + 1]);
 	val = (int16_t)get_args(env->memory, process->pc + 1, args[0].length);
-	process->fork.pc = process->pc + (val % IDX_MOD);
+	process->fork.pc = (process->pc + (val % IDX_MOD)) % MEM_SIZE;
 	process->fork.isfork = TRUE;
 	process->nb_cycle -= 800;
 	process->pc += BYPASS_ARG + args[0].length;
